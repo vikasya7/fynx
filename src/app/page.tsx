@@ -1,12 +1,12 @@
-import { Button } from '@/components/ui/button'
+
+import { prisma } from '@/lib/db'
 import React from 'react'
 
 const page = () => {
+  
   return (
     <div>
-      <Button>
-        Click me
-      </Button>
+     Hello world
       </div>
   )
 }
