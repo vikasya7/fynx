@@ -1,0 +1,17 @@
+# This is a config for E2B sandbox template.
+# You can use template ID (3pvy96xf2xvcsfloiy2z) or template name (fynx-nextjs-test2) to create a sandbox:
+
+# Python SDK
+# from e2b import Sandbox, AsyncSandbox
+# sandbox = Sandbox("fynx-nextjs-test2") # Sync sandbox
+# sandbox = await AsyncSandbox.create("fynx-nextjs-test2") # Async sandbox
+
+# JS SDK
+# import { Sandbox } from 'e2b'
+# const sandbox = await Sandbox.create('fynx-nextjs-test2')
+
+team_id = "b8975fe8-6e1a-4db2-b82c-5843cdaad016"
+start_cmd = "/compile_page.sh"
+dockerfile = "e2b.Dockerfile"
+template_name = "fynx-nextjs-test2"
+template_id = "3pvy96xf2xvcsfloiy2z"
