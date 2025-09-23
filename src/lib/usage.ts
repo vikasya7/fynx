@@ -1,4 +1,4 @@
-import {RateLimiterPrisma} from "rate-limiter-flexible"
+import { RateLimiterPrisma } from "rate-limiter-flexible"
 import { prisma } from "./db"
 import { auth } from "@clerk/nextjs/server";
 
