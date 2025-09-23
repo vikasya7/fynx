@@ -2,16 +2,12 @@ import {Result, Sandbox} from "@e2b/code-interpreter"
 import {  openai, createAgent, createTool, createNetwork,type Tool,type Message, createState } from "@inngest/agent-kit"
 
 import { z, ZodObject } from "zod";
-
-
-
-
 import { inngest } from "./client";
-
 import { getSandbox, lastAssistantTextMessageContent, parseAgentOutput } from "./utils";
 import { stdout, title } from "process";
 import { FRAGMENT_TITLE_PROMPT, PROMPT,RESPONSE_PROMPT} from "@/prompt";
 import { prisma } from "@/lib/db";
+import { SANDBOX_TIMEOUT } from "./types";
 
 interface AgentState{
   summary: string;
@@ -24,6 +20,7 @@ export const codeAgentFunction = inngest.createFunction(
   async ({ event,step }) => {
     const sandboxId= await step.run("get-sandbox-id", async()=>{
       const sandbox=await Sandbox.create("fynx-nextjs-test2");
+      await sandbox.setTimeout(SANDBOX_TIMEOUT);
       return sandbox.sandboxId;
     });
     
@@ -35,8 +32,9 @@ export const codeAgentFunction = inngest.createFunction(
           projectId: event.data.projectId,
         },
         orderBy: {
-          createdAt: "desc", //TODO: CHange to asc if ai does not respond to latest message
+          createdAt: "desc", 
         },
+        take: 5,
       });
       for(const message of messages){
         formattedMessages.push({
@@ -46,7 +44,7 @@ export const codeAgentFunction = inngest.createFunction(
         })
       }
 
-      return formattedMessages;
+      return formattedMessages.reverse();
     });
     
 
